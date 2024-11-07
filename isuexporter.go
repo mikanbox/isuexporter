@@ -72,11 +72,11 @@ func TraceFileProvider(filePath string, serviceName string, serviceVersion strin
 func (f *FileSpanExporter) ExportSpans(ctx context.Context, spans []sdktrace.ReadOnlySpan) error {
 	for _, span := range spans {
 		// スパンデータを JSON 形式で出力
-		data, err := json.MarshalIndent(spanToMap(span), "", "  ")
+		data, err := json.Marshal(spanToMap(span))
 		if err != nil {
 			return err
 		}
-		_, err = f.file.Write(append(data, ','))
+		_, err = f.file.Write(append(data, '\n'))
 		if err != nil {
 			return err
 		}
