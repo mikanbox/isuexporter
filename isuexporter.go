@@ -87,9 +87,13 @@ func (f *FileSpanExporter) ExportSpans(ctx context.Context, spans []sdktrace.Rea
 // ReadOnlySpan から簡易なマップに変換する（必要に応じてカスタマイズ可能）
 func spanToMap(span sdktrace.ReadOnlySpan) map[string]interface{} {
 	return map[string]interface{}{
-		"name":       span.Name(),
-		"startTime":  span.StartTime(),
-		"endTime":    span.EndTime(),
-		"attributes": span.Attributes(),
+		"name":         span.Name(),
+		"startTime":    span.StartTime(),
+		"endTime":      span.EndTime(),
+		"attributes":   span.Attributes(),
+		"spanID":       span.SpanContext().SpanID().String(),
+		"traceID":      span.SpanContext().TraceID().String(),
+		"parentSpanID": span.Parent().SpanID().String(),
+		"status":       span.Status().Code.String(),
 	}
 }
