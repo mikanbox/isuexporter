@@ -76,7 +76,7 @@ func (f *FileSpanExporter) ExportSpans(ctx context.Context, spans []sdktrace.Rea
 		if err != nil {
 			return err
 		}
-		_, err = f.file.Write(append(data, '\n'))
+		_, err = f.file.Write(append(data, ','))
 		if err != nil {
 			return err
 		}
